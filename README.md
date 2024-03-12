@@ -10,10 +10,10 @@ The `speculative_decoding_demo` notebook is for those who can't deploy a large L
 
 The `speculative_decoding_deployment` notebook is for those who wish to deploy their own target and draft LLMs. We build the demo on top of DeepSpeed Inference and HuggingFace libraries.
 
-For those who wish to try our distilled models, please use the links above to download the target models.
+For those who wish to try our distilled models, please use the links above to download the draft models.
 
 ## Install requirements
-The speculative decoding demo is based on DeepSpeed and HuggingFace Transformers. Please install Python 3.9 and sfollow the steps below to install relevant packages:
+The speculative decoding demo is based on DeepSpeed and HuggingFace Transformers. Please install Python 3.9 and follow the steps below to install relevant packages:
 ```
 pip install torch==2.0.1+cu118 torchvision==0.15.2+cu118 torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cu118
 pip install transformers datasets deepspeed
