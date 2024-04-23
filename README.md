@@ -12,7 +12,7 @@ The `speculative_decoding_deployment` script is for those who wish to deploy the
 
 To launch scripts, please run `deepspeed --num_gpus <# GPUs of your choice> <script name>`. For `speculative_decoding_demo`, 1 GPU is sufficient; for `speculative_decoding_deployment`, it depends on how large your target LLM is. For reference, 4 80GB A100 GPUS are required for running `speculative_decoding_deployment` with 70B models.
 
-For those who wish to try our distilled models, please use the links above to download the draft models. As per our paper, LLaMA-796M is the best performing model and is thus selected as the default model in the notebooks.
+For those who wish to try our distilled models, please use the links above to download the draft models. As per our paper, LLaMA-796M is the best performing model and is thus selected as the default model in the scripts.
 
 This project aims to understand the design space of draft models in speculative decoding. Our key observations is that draft model inference latency bottlenecks the througput of speculative decoding. Furthur, draft model depth is the key bottleneck in draft model inference latency. We release a series of models distilled from LLaMA-7B based on [Sheared-LLaMA](https://github.com/princeton-nlp/LLM-Shearing) to create draft models with shallow but wide layers that provide significantly higher decoding throughput.
 
@@ -26,7 +26,7 @@ pip install transformers datasets deepspeed
 ## Deploy speculative decoding
 We provide two scripts to help you deploy speculative decoding, one for those who can deploy a large LLM and one for those who cannot afford to deploy large LLM with pre-computed results stored in advance.
 
-To run the notebook, you will need to make the following changes (These steps are also in the comments in the notebook, feel free to jump into the notebooks directly):
+To run the scripts, you will need to make the following changes (These steps are also in the comments in the scripts, feel free to jump into the scripts directly):
 
 ### Set up your test datasets
 - `test_json`: Replace the json file with your file path. The format of the json file is specified in the `json_loader` function. We provide a json file with prompts from the Hellaswag dataset.
@@ -64,6 +64,20 @@ draft_model.embed_tokens = nn.Embedding(draft_model.config.vocab_size, draft_mod
 - `batch_size`: Inference batchsize.
 - `max_new_tokens`: The amount of tokens the draft model generates during each speculative decoding iteration.
 - `output_file`: Name of the output file to store the speculative decoding results.
+
+### Output:
+```
+[2]
+[6]
+[8]
+...
+[200]
+[3]
+[4]
+[7]
+...
+```
+The output of the script is a file that summarizes the number of tokens matched after each decoding iteration. We provide a script `analyze_output.py` to assist you to parse the output and compute average tokens matched per prompt and per dataset.
 
 ## Contact
 If you have questions related to the paper and code, please email [Minghao](myan@cs.wisc.edu). For bug reports, please either email [Minghao](myan@cs.wisc.edu) or open an issue.
