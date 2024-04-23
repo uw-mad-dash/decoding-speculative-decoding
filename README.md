@@ -4,11 +4,13 @@
 Distilled draft models: [1.3B](https://huggingface.co/minghaoyan/Wide-Sheared-LLaMA-1.3B) | [796M](https://huggingface.co/minghaoyan/Wide-Sheared-LLaMA-796M) | [543M](https://huggingface.co/minghaoyan/Wide-Sheared-LLaMA-543M) | [290M](https://huggingface.co/minghaoyan/Wide-Sheared-LLaMA-290M).
 
 ## Introduction
-This repo contains two notebooks demonstrating speculative decoding on LLaMA models. We also release a series of draft models distilled based on the [Sheared-LLaMA](https://github.com/princeton-nlp/LLM-Shearing) codebase. 
+This repo contains two python script demonstrating speculative decoding on LLaMA models. We also release a series of draft models distilled based on the [Sheared-LLaMA](https://github.com/princeton-nlp/LLM-Shearing) codebase. 
 
-The `speculative_decoding_demo` notebook is for those who can't deploy a large LLM to try speculative decoding. We pre-compute results from LLaMA-65B and store the output in a log file to simulate speculative decoding.
+The `speculative_decoding_demo` script is for those who can't deploy a large LLM to try speculative decoding. We pre-compute results from LLaMA-65B and store the output in a log file to simulate speculative decoding.
 
-The `speculative_decoding_deployment` notebook is for those who wish to deploy their own target and draft LLMs. We build the demo on top of DeepSpeed Inference and HuggingFace libraries.
+The `speculative_decoding_deployment` script is for those who wish to deploy their own target and draft LLMs. We build the demo on top of DeepSpeed Inference and HuggingFace libraries.
+
+To launch scripts, please run `deepspeed --num_gpus <# GPUs of your choice> <script name>`. For `speculative_decoding_demo`, 1 GPU is sufficient; for `speculative_decoding_deployment`, it depends on how large your target LLM is. For reference, 4 80GB A100 GPUS are required for running `speculative_decoding_deployment` with 70B models.
 
 For those who wish to try our distilled models, please use the links above to download the draft models. As per our paper, LLaMA-796M is the best performing model and is thus selected as the default model in the notebooks.
 
@@ -22,13 +24,13 @@ pip install transformers datasets deepspeed
 ```
 
 ## Deploy speculative decoding
-We provide two notebooks to help you deploy speculative decoding, one for those who can deploy a large LLM and one for those who cannot afford to deploy large LLM with pre-computed results stored in advance.
+We provide two scripts to help you deploy speculative decoding, one for those who can deploy a large LLM and one for those who cannot afford to deploy large LLM with pre-computed results stored in advance.
 
 To run the notebook, you will need to make the following changes (These steps are also in the comments in the notebook, feel free to jump into the notebooks directly):
 
 ### Set up your test datasets
-- `test_json`: Replace the json file with your file path. The format of the json file is specified in the `json_loader` function.
-- `input_file_path` (Only for `speculative_decoding_demo`): Replace the input file with your input file. The format of the input file in specified in the `parse_tensors_from_file` function. 
+- `test_json`: Replace the json file with your file path. The format of the json file is specified in the `json_loader` function. We provide a json file with prompts from the Hellaswag dataset.
+- `input_file_path` (Only for `speculative_decoding_demo`): Replace the input file with your input file. The format of the input file in specified in the `parse_tensors_from_file` function. We provide outputs from LLaMA-65B on Hellaswag datasets with maximum generation length set to be 200 for each prompt.
 
 ### Set up Huggingface target and draft models
 - `TRANSFORMERS_CACHE`: Update your transformers_cache directory for saving existing models.
