@@ -1,7 +1,7 @@
 # Decoding Speculative Decoding
 [Arxiv Preprint](https://arxiv.org/pdf/2402.01528.pdf)
 
-Distilled draft models: [1.3B]() | [670M]() | [417M]() (Link to be updated aftet pushing to HF).
+Distilled draft models: [1.3B](https://huggingface.co/terunofuji/Wide-Sheared-LLaMA-1.3B) | [796M](https://huggingface.co/terunofuji/Wide-Sheared-LLaMA-796M) | [543M](https://huggingface.co/terunofuji/Wide-Sheared-LLaMA-543M) | [290M](https://huggingface.co/terunofuji/Wide-Sheared-LLaMA-290M).
 
 ## Introduction
 This repo contains two notebooks demonstrating speculative decoding on LLaMA models. We also release a series of draft models distilled based on the [Sheared-LLaMA](https://github.com/princeton-nlp/LLM-Shearing) codebase. 
@@ -10,7 +10,9 @@ The `speculative_decoding_demo` notebook is for those who can't deploy a large L
 
 The `speculative_decoding_deployment` notebook is for those who wish to deploy their own target and draft LLMs. We build the demo on top of DeepSpeed Inference and HuggingFace libraries.
 
-For those who wish to try our distilled models, please use the links above to download the draft models.
+For those who wish to try our distilled models, please use the links above to download the draft models. As per our paper, LLaMA-796M is the best performing model and is thus selected as the default model in the notebooks.
+
+This project aims to understand the design space of draft models in speculative decoding. Our key observations is that draft model inference latency bottlenecks the througput of speculative decoding. Furthur, draft model depth is the key bottleneck in draft model inference latency. We release a series of models distilled from LLaMA-7B based on [Sheared-LLaMA](https://github.com/princeton-nlp/LLM-Shearing) to create draft models that significantly ourperforms existing models.
 
 ## Install requirements
 The speculative decoding demo is based on DeepSpeed and HuggingFace Transformers. Please install Python 3.9 and follow the steps below to install relevant packages:
