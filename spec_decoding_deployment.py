@@ -267,7 +267,7 @@ if __name__ == "__main__":
                 # Logging the total matched tokens to a file if the local rank is 0
                 if local_rank == 0:
                     with open(output_file, "a") as f:
-                        f.write(str(total_matched) + str("\n"))
+                        f.write(str(total_matched.tolist()) + str("\n"))
 
                 # Updating the current length for the next iteration
                 current_length = min(total_matched)

@@ -77,7 +77,7 @@ draft_model.embed_tokens = nn.Embedding(draft_model.config.vocab_size, draft_mod
 [7]
 ...
 ```
-The output of the script is a file that summarizes the number of tokens matched after each decoding iteration. We provide a script `analyze_output.py` to assist you to parse the output and compute average tokens matched per prompt and per dataset.
+The output of the script is a file that summarizes the total number of tokens matched so far within a prompt after each decoding iteration. We provide a script `analyze_output.py` to assist you to parse the output and compute average tokens matched per prompt and per dataset.
 
 ## Contact
 If you have questions related to the paper and code, please email [Minghao](myan@cs.wisc.edu). For bug reports, please either email [Minghao](myan@cs.wisc.edu) or open an issue.

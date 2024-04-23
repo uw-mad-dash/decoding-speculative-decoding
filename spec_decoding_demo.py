@@ -216,7 +216,7 @@ if __name__ == "__main__":
 
                 if local_rank == 0:
                     with open(output_file, "a") as f:  # Replace with your file path
-                        f.write(str(total_matched) + str("\n"))
+                        f.write(str(total_matched.tolist()) + str("\n"))
 
                 current_length = min(total_matched)
 
