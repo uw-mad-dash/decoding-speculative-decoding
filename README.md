@@ -1,4 +1,6 @@
 # Decoding Speculative Decoding
+This project aims to understand the design space of draft models in speculative decoding. Our key observations is that draft model inference latency bottlenecks the througput of speculative decoding. Furthur, draft model depth is the key bottleneck in draft model inference latency. We release a series of models distilled from LLaMA-7B based on [Sheared-LLaMA](https://github.com/princeton-nlp/LLM-Shearing) to create draft models with shallow but wide layers that provide significantly higher decoding throughput.
+
 [Arxiv Preprint](https://arxiv.org/pdf/2402.01528.pdf)
 
 Distilled draft models: [1.3B](https://huggingface.co/minghaoyan/Wide-Sheared-LLaMA-1.3B) | [796M](https://huggingface.co/minghaoyan/Wide-Sheared-LLaMA-796M) | [543M](https://huggingface.co/minghaoyan/Wide-Sheared-LLaMA-543M) | [290M](https://huggingface.co/minghaoyan/Wide-Sheared-LLaMA-290M).
@@ -13,8 +15,6 @@ The `speculative_decoding_deployment` script is for those who wish to deploy the
 To launch scripts, please run `deepspeed --num_gpus <# GPUs of your choice> <script name>`. For `speculative_decoding_demo`, 1 GPU is sufficient; for `speculative_decoding_deployment`, it depends on how large your target LLM is. For reference, 4 80GB A100 GPUS are required for running `speculative_decoding_deployment` with 70B models.
 
 For those who wish to try our distilled models, please use the links above to download the draft models. As per our paper, LLaMA-796M is the best performing model and is thus selected as the default model in the scripts.
-
-This project aims to understand the design space of draft models in speculative decoding. Our key observations is that draft model inference latency bottlenecks the througput of speculative decoding. Furthur, draft model depth is the key bottleneck in draft model inference latency. We release a series of models distilled from LLaMA-7B based on [Sheared-LLaMA](https://github.com/princeton-nlp/LLM-Shearing) to create draft models with shallow but wide layers that provide significantly higher decoding throughput.
 
 ## Install requirements
 The speculative decoding demo is based on DeepSpeed and HuggingFace Transformers. Please install Python 3.9 and follow the steps below to install relevant packages:
@@ -66,18 +66,13 @@ draft_model.embed_tokens = nn.Embedding(draft_model.config.vocab_size, draft_mod
 - `output_file`: Name of the output file to store the speculative decoding results.
 
 ### Output:
+The output from the speculative decoding script is a file that summarizes the total number of tokens matched so far within a prompt after each decoding iteration. We provide a script `analyze_output.py` to assist you to parse the output file and compute average tokens matched per prompt and per dataset. The output of `analyze_output.py` looks like the following:
 ```
-[2]
-[6]
-[8]
-...
-[200]
-[3]
-[4]
-[7]
-...
+Average tokens matched per prompt: [3.0125, 2.5276, 2.7758, ...]
+Average tokens matched per dataset: [2.6762]
 ```
-The output of the script is a file that summarizes the total number of tokens matched so far within a prompt after each decoding iteration. We provide a script `analyze_output.py` to assist you to parse the output and compute average tokens matched per prompt and per dataset.
+Each term in the first line represents the average number of tokens matched per iteration for each input prompt, the second line represents the average number of tokens matched per iteration over the entire evaluated dataset.
+
 
 ## Contact
 If you have questions related to the paper and code, please email [Minghao](myan@cs.wisc.edu). For bug reports, please either email [Minghao](myan@cs.wisc.edu) or open an issue.
