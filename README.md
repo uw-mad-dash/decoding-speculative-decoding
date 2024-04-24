@@ -14,7 +14,7 @@ The `speculative_decoding_deployment` script is for those who wish to deploy the
 
 To launch scripts, please run `deepspeed --num_gpus <# GPUs of your choice> <script name>`. For `speculative_decoding_demo`, 1 GPU is sufficient; for `speculative_decoding_deployment`, it depends on how large your target LLM is. For reference, 4 80GB A100 GPUS are required for running `speculative_decoding_deployment` with 70B models.
 
-For those who wish to try our distilled models, please use the links above to download the draft models. As per our paper, LLaMA-796M is the best performing model and is thus selected as the default model in the scripts.
+For those who wish to try our distilled models, please use the links above to download the draft models. As per our paper, LLaMA-796M is the best performing model and thus selected as the default model in the scripts.
 
 ## Install requirements
 The speculative decoding demo is based on DeepSpeed and HuggingFace Transformers. Please install Python 3.9 and follow the steps below to install relevant packages:
