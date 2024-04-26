@@ -17,7 +17,7 @@ To launch scripts, please run `deepspeed --num_gpus <# GPUs of your choice> <scr
 For those who wish to try our distilled models, please use the links above to download the draft models. As per our paper, LLaMA-796M is the best performing model and thus selected as the default model in the scripts.
 
 ## Install requirements
-The speculative decoding demo is based on DeepSpeed and HuggingFace Transformers. Please install Python 3.9 and follow the steps below to install relevant packages:
+The speculative decoding demo is based on DeepSpeed and HuggingFace Transformers. Please install CUDA 11.8, Python 3.9, and follow the steps below to install relevant packages:
 ```
 pip install torch==2.0.1+cu118 torchvision==0.15.2+cu118 torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cu118
 pip install transformers datasets deepspeed
