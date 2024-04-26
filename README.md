@@ -3,7 +3,7 @@ This project aims to understand the design space of draft models in speculative 
 
 [Arxiv Preprint](https://arxiv.org/pdf/2402.01528.pdf)
 
-Distilled draft models: [1.3B](https://huggingface.co/minghaoyan/Wide-Sheared-LLaMA-1.3B) | [796M](https://huggingface.co/minghaoyan/Wide-Sheared-LLaMA-796M) | [543M](https://huggingface.co/minghaoyan/Wide-Sheared-LLaMA-543M) | [290M](https://huggingface.co/minghaoyan/Wide-Sheared-LLaMA-290M).
+Distilled draft models: [1.3B](https://huggingface.co/minghaoyan/Wide-Sheared-LLaMA-1.3B) | [796M](https://huggingface.co/minghaoyan/Wide-Sheared-LLaMA-796M) <Default, best performance> | [543M](https://huggingface.co/minghaoyan/Wide-Sheared-LLaMA-543M) | [290M](https://huggingface.co/minghaoyan/Wide-Sheared-LLaMA-290M).
 
 ## Introduction
 This repo contains two python script demonstrating speculative decoding on LLaMA models. We also release a series of draft models distilled based on the [Sheared-LLaMA](https://github.com/princeton-nlp/LLM-Shearing) codebase. 
